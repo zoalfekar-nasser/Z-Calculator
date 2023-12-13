@@ -1,0 +1,91 @@
+@use "variables" as v;
+@use "colors" as c;
+
+//* FLex Mixin
+@mixin flex($justify: flex-start, $align: stretch, $dir: row) {
+  display: flex;
+  @if $justify != flex-start {
+    justify-content: $justify;
+  }
+  @if $align != stretch {
+    align-items: $align;
+  }
+  @if $dir != row {
+    flex-direction: $dir;
+  }
+  @content;
+}
+//* ========================================
+
+//* Amazing border;
+
+@mixin am-border($left, $top, $dir1, $dir2, $colors...) {
+  position: relative;
+  @content;
+  &::after {
+    content: "";
+    width: 150px;
+    height: 2px;
+    position: absolute;
+    top: $top;
+    left: $left;
+    background-image: linear-gradient($dir1, $colors);
+  }
+  &::before {
+    content: "";
+    width: 2px;
+    height: 150px;
+    position: absolute;
+    top: $top;
+    left: $left;
+    background-image: linear-gradient($dir2, $colors);
+  }
+}
+
+//! Circular Layout
+
+@mixin circular-layout(
+  $elements-number,
+  $main-angel,
+  $translate,
+  $clock-angel: 0deg
+) {
+  $angel: $main-angel / $elements-number;
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > * {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @for $i from 1 through $elements-number {
+    $rotation: $angel * ($i - 1);
+
+    & *:nth-child(#{$i}) {
+      transform: rotate(($rotation * 1deg) - $clock-angel)
+        translate($translate);
+
+      > * {
+        transform: rotate(($rotation * -1deg) + $clock-angel);
+      }
+    }
+  }
+}
+
+@mixin media($first-value, $second-value: "") {
+  @if $second-value == "" {
+    @media ($first-value) {
+      @content;
+    }
+  } @else {
+    @media ($first-value) and ($second-value) {
+      @content;
+    }
+  }
+}

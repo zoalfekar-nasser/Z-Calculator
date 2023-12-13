@@ -1,0 +1,7 @@
+@use "../utilities/variables" as v;
+
+%nums-grid {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: v.$gap;
+}

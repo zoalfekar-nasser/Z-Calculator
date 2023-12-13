@@ -1,0 +1,92 @@
+@use "../utilities/colors" as c;
+@use "../utilities/variables" as v;
+@use "../utilities/mixins" as m;
+
+.item {
+  @include m.flex(center, center);
+  width: 70px;
+  height: 70px;
+  font-size: 32px;
+  cursor: pointer;
+  position: relative;
+  isolation: isolate;
+  user-select: none;
+  transition: color 0.2s;
+  &::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    aspect-ratio: 1;
+    background-color: rgba(c.$clr, 0.1);
+    border-radius: 50%;
+    transition: width 0.2s, filter 0.1s;
+    z-index: -1;
+  }
+
+  @media (min-width: 573px) {
+    &:hover {
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+  &:active {
+    &::after {
+      filter: blur(10px);
+      width: 90%;
+    }
+  }
+
+  @media (max-width: 400px) {
+    width: 65px;
+    height: 65px;
+    font-size: 28px;
+  }
+}
+
+.colored {
+  color: rgba(c.$clr);
+  font-weight: bold;
+}
+
+.final-sum {
+  color: c.$clr-text !important;
+  font-size: 3.2rem !important;
+  user-select: auto !important;
+}
+
+.light-shadow {
+  box-shadow: 0 0 10px rgba(black, 0.1);
+  border: 1px solid rgba(c.$clr, 0.2);
+}
+
+.open {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.color.active {
+  filter: brightness(100%) !important;
+  transform: scale(1.7);
+}
+
+.tool-tip {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.2);
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px;
+  background-color: c.$clr-secondry-hover;
+  border-radius: 4px;
+  color: c.$clr-text;
+  background-color: c.$clr-toolTip;
+  opacity: 0;
+  transition: transform 0.2s, opacity 0.2s;
+  @media (max-width: 572px) {
+    display: none;
+  }
+}
