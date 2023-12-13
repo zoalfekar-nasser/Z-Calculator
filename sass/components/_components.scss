@@ -11,7 +11,7 @@
   position: relative;
   isolation: isolate;
   user-select: none;
-  transition: color 0.2s;
+  transition: color .2s;
   &::after {
     content: "";
     position: absolute;

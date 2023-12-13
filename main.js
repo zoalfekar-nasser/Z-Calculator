@@ -4,6 +4,8 @@ let numbers = document.querySelectorAll(".number");
 
 let ops = document.querySelectorAll(".op");
 
+let disabledItems = document.querySelectorAll("[data-disable]");
+
 let monitor = document.querySelector(".monitor");
 
 let monitorContainer = document.querySelector(".mo-content");
@@ -13,8 +15,6 @@ let sum = document.querySelector(".sum");
 let arrow = document.querySelector(".arrow");
 
 let strSum = "";
-
-sum.innerHTML = eval(strSum) || "";
 
 numbers.forEach(function (ele) {
   ele.addEventListener("click", function () {
@@ -77,11 +77,13 @@ clearAll.addEventListener("click", function () {
 
   sum.classList.remove("final-sum");
 
-  numbers.forEach(function (ele) {
-    ele.style.cssText = `
-        pointer-events: auto;
-        color: inherit;
-      `;
+  disabledItems.forEach(function (item) {
+    item.style.pointerEvents = "auto";
+    if (item.classList.contains("colored")) {
+      item.style.color = "rgba(var(--clr))";
+    } else {
+      item.style.color = "var(--clr-text)";
+    }
   });
 
   monitorContainer.style.opacity = "1";
@@ -135,11 +137,11 @@ equal.addEventListener("click", function () {
 
     monitorContainer.innerHTML = "";
 
-    numbers.forEach(function (ele) {
-      ele.style.cssText = `
-        pointer-events: none;
-        color: var(--disabled);
-      `;
+    disabledItems.forEach(function (item) {
+      item.style.cssText = `
+          pointer-events: none;
+          color: var(--disabled);
+        `;
     });
   }
 });
@@ -239,5 +241,3 @@ colors.forEach(function (color) {
     });
   });
 });
-
-//* Manage If The .sum Element Get a 100% width
