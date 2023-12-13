@@ -159,6 +159,19 @@ let calcBody = document.querySelector(".calc-body");
 let moonIconClass = "fa-moon";
 
 let sunIconClass = "fa-sun";
+
+const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+
+if (prefersLight) {
+  root.classList.add("light");
+
+  iconToolTip.innerHTML = "Switch To Dark Mode";
+
+  icon.classList.remove(sunIconClass);
+
+  icon.classList.add(moonIconClass);
+}
+
 switchMode.addEventListener("click", function () {
   //* Animation On click
 
