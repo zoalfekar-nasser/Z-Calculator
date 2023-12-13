@@ -9,7 +9,9 @@ main {
   color: c.$clr-text;
   background-color: c.$clr-primary;
   min-height: 100vh;
-  @include m.flex(center, center, column);
+  @include m.flex(center, center, column) {
+    gap: 1rem;
+  };
   padding: 15px;
 
   transition: background 0.2s;
@@ -18,18 +20,9 @@ main {
     justify-content: flex-start;
   }
 
-  .mobile-grid {
-    @media (max-width: 572px) {
-      padding-bottom: 1rem;
-      height: 100vh;
-      display: grid;
-      grid-template-rows: 1fr 11fr;
-    }
-  }
   .switch {
     @include m.flex(center, center);
     padding: 12px;
-    margin-bottom: 1rem;
     background-color: c.$clr-secondry;
     width: min(100%, 375px);
     text-align: center;
@@ -88,10 +81,6 @@ main {
   .calc {
     width: min(100%, 375px);
     margin-bottom: 1rem;
-    @media (max-width: 572px) {
-      display: grid;
-      grid-template-rows: 4fr 8fr;
-    }
     .monitor {
       background-color: c.$clr-secondry;
       aspect-ratio: 16 / 8;
@@ -103,7 +92,7 @@ main {
       overflow: hidden;
       isolation: isolate;
       @media (max-width: 572px) {
-        aspect-ratio: auto;
+        aspect-ratio: 16 / 5;
         padding: 15px;
       }
       //* Very Imortanr Section
