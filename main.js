@@ -28,6 +28,25 @@ numbers.forEach(function (ele) {
   });
 });
 
+//* Dot Button
+
+let dot = document.querySelector(".dot");
+
+dot.addEventListener("click", function () {
+  if (monitorContainer.innerHTML !== "") {
+    strSum += dot.getAttribute("data-value");
+
+    monitorContainer.append(dot.getAttribute("data-value"));
+
+    sum.append(dot.getAttribute("data-value"));
+
+    dot.style.cssText = `
+    pointer-events: none;
+    color: var(--disabled);
+    `;
+  }
+});
+
 ops.forEach(function (ele) {
   ele.addEventListener("click", function () {
     //*Check If There Is A Number In The Monitor
@@ -60,6 +79,15 @@ ops.forEach(function (ele) {
       } else {
         monitorContainer.append(opIcon);
         strSum += ele.getAttribute("data-value");
+      }
+
+      //* ReEnable The Dot Button
+
+      if (dot.style.pointerEvents === "none") {
+        dot.style.cssText = `
+        pointer-events: auto;
+        color: var(--clr-text);
+        `;
       }
     }
   });
