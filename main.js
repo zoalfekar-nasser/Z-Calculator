@@ -170,6 +170,8 @@ if (prefersLight) {
   icon.classList.remove(sunIconClass);
 
   icon.classList.add(moonIconClass);
+
+  calcBody.classList.add("light-shadow");
 }
 
 switchMode.addEventListener("click", function () {
