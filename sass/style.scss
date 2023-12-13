@@ -10,14 +10,15 @@ main {
   background-color: c.$clr-primary;
   min-height: 100vh;
   @include m.flex(center, center, column) {
-    gap: 1rem;
+    gap: 15px;
   };
-  padding: 15px;
+  padding: 10px;
 
   transition: background 0.2s;
   overflow: hidden;
   @media (max-width: 572px) {
     justify-content: flex-start;
+    gap: 10px
   }
 
   .switch {
@@ -70,8 +71,8 @@ main {
       padding: 8px;
 
       .mode-icon {
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
         &:active {
           background-color: c.$clr-modeIcon;
         }
@@ -85,15 +86,16 @@ main {
       background-color: c.$clr-secondry;
       aspect-ratio: 16 / 8;
       padding: 15px 15px 30px 15px;
-      margin-bottom: 1rem;
+      margin-bottom: 15px;
       border-radius: 1rem;
       font-size: 28px;
       position: relative;
       overflow: hidden;
       isolation: isolate;
       @media (max-width: 572px) {
-        aspect-ratio: 16 / 5;
+        aspect-ratio: 16 / 6;
         padding: 15px;
+        margin-bottom: 10px;
       }
       //* Very Imortanr Section
       .mo-content {
