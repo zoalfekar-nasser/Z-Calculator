@@ -14,7 +14,7 @@ main {
   };
   padding: 10px;
 
-  transition: background 0.2s;
+  transition: background v.$mainTransition;
   overflow: hidden;
   @media (max-width: 572px) {
     justify-content: flex-start;
@@ -34,7 +34,7 @@ main {
       font-weight: bold;
       text-transform: uppercase;
       color: rgb(c.$clr);
-      transition: letter-spacing 0.2s;
+      transition: color v.$mainTransition;
       flex: 1;
     }
     .mode-icon {
@@ -44,7 +44,7 @@ main {
       font-size: 20px;
       border-radius: 50%;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background v.$mainTransition;
       position: relative;
       @media (min-width: 573px) {
         &:hover {
@@ -150,8 +150,8 @@ main {
         color: c.$clr-text;
         font-size: 20px;
         border-radius: 50%;
-        transition: box-shadow 0.2s, color 0.2s, background 0.2s, width 0.2s,
-          height 0.2s;
+        transition: box-shadow v.$mainTransition, color v.$mainTransition, background v.$mainTransition, width v.$mainTransition,
+          height v.$mainTransition;
         cursor: pointer;
         user-select: none;
         z-index: 15;
@@ -204,7 +204,7 @@ main {
             aspect-ratio: 1;
             background-color: gold;
             border-radius: 50%;
-            transition: transform 0.2s;
+            transition: transform v.$mainTransition;
             cursor: pointer;
           }
         }
@@ -221,7 +221,7 @@ main {
         opacity: 0;
         cursor: pointer;
         user-select: none;
-        transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+        transition: transform v.$mainTransition, box-shadow v.$mainTransition, opacity v.$mainTransition;
         &:hover {
           transform: scale(1.4);
         }
@@ -276,7 +276,7 @@ main {
     @include m.flex(center, center);
     i {
       color: rgb(c.$clr);
-      transition: color 0.2s;
+      transition: color v.$mainTransition;
       animation: up-down 1s alternate infinite ease-in-out;
     }
     a {
@@ -295,7 +295,7 @@ main {
         height: 4px;
         background-color: rgb(c.$clr);
         border-radius: 50%;
-        transition: width 0.2s, height 0.2s, border 0.2s;
+        transition: width v.$mainTransition, height v.$mainTransition, border v.$mainTransition;
         transition-timing-function: ease-in-out;
       }
       &:hover {

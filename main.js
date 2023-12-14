@@ -73,8 +73,17 @@ ops.forEach(function (ele) {
           monitorContainer.append(opIcon);
           strSum += "-";
         } else {
-          monitorContainer.lastElementChild.className = opIcon.className;
-          strSum = strSum.slice(0, -1) + ele.getAttribute("data-value");
+          if (
+            lastOp.classList.contains("fa-minus") &&
+            lastOp.previousSibling.nodeType === 1
+          ) {
+            lastOp.previousElementSibling.className = opIcon.className;
+            lastOp.remove();
+            strSum = strSum.slice(0, -2) + ele.getAttribute("data-value");
+          } else {
+            monitorContainer.lastElementChild.className = opIcon.className;
+            strSum = strSum.slice(0, -1) + ele.getAttribute("data-value");
+          }
         }
       } else {
         monitorContainer.append(opIcon);
