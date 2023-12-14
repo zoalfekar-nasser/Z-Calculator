@@ -47,56 +47,92 @@ dot.addEventListener("click", function () {
   }
 });
 
-ops.forEach(function (ele) {
-  ele.addEventListener("click", function () {
-    //*Check If There Is A Number In The Monitor
+ops.forEach(function (op) {
+  op.addEventListener("click", function () {
+    //* Check If the Monitor is not empty or if the Monitor IS EMPTY And The Target Operator Is Minus
 
-    if (monitorContainer.innerHTML !== "") {
+    //* These 2 Conditions are Empossible to be true together
+
+    if (
+      monitorContainer.innerHTML !== "" ||
+      (monitorContainer.innerHTML === "" &&
+        op.getAttribute("data-value") === "-")
+    ) {
       let opIcon = document.createElement("i");
 
-      opIcon.className = `${ele.getAttribute("data-op")}`;
+      opIcon.className = `${op.getAttribute("data-op")}`;
 
       opIcon.style.cssText = `
-      font-size: 18px;
-      margin-inline: 5px;
-      color: rgb(var(--clr));
-      `;
+        font-size: 18px;
+        margin-inline: 5px;
+        color: rgb(var(--clr));
+        `;
 
-      if (monitorContainer.lastChild.nodeType === 1) {
-        let lastOp = monitorContainer.lastElementChild;
+      //* So Here we test The First Condition
 
-        if (
-          (lastOp.classList.contains("fa-multiply") ||
-            lastOp.classList.contains("fa-divide")) &&
-          ele.getAttribute("data-value") === "-"
-        ) {
-          monitorContainer.append(opIcon);
-          strSum += "-";
-        } else {
-          if (
-            lastOp.classList.contains("fa-minus") &&
-            lastOp.previousSibling.nodeType === 1
-          ) {
-            lastOp.previousElementSibling.className = opIcon.className;
-            lastOp.remove();
-            strSum = strSum.slice(0, -2) + ele.getAttribute("data-value");
+      if (monitorContainer.innerHTML !== "") {
+        //* Here We Check if The Last Element in the monitor is An Operoator
+
+        if (monitorContainer.lastChild.nodeType === 1) {
+          let lastOp = monitorContainer.lastElementChild;
+
+          //* If This Operator Is The Percent Operator We Will The Target Operator Normally
+
+          if (lastOp.classList.contains("fa-percent")) {
+            monitorContainer.append(opIcon);
+            strSum += op.getAttribute("data-value");
           } else {
-            monitorContainer.lastElementChild.className = opIcon.className;
-            strSum = strSum.slice(0, -1) + ele.getAttribute("data-value");
+            //* And If its Not The Percent Operator We Will Check On Several Conditions
+
+            //* The First One Is If The Last Operator Is '*' or '/' AND The Target Operator is '-' To Mange The Multiply And Divide on Negative Numbers
+
+            if (
+              (lastOp.classList.contains("fa-multiply") ||
+                lastOp.classList.contains("fa-divide")) &&
+              op.getAttribute("data-value") === "-"
+            ) {
+              monitorContainer.append(opIcon);
+
+              strSum += "-";
+            } else if (
+              !(lastOp.classList.contains("fa-minus") && strSum.length === 1)
+            ) {
+              //* We Check Here If There Is No A Single Minus in the Screen
+
+              //* Here If There is a Minus And '*' or '-' Behind it We Will Change Them By The Target Operator
+
+              if (
+                lastOp.classList.contains("fa-minus") &&
+                lastOp.previousSibling.nodeType === 1
+              ) {
+                lastOp.previousElementSibling.className = opIcon.className;
+
+                lastOp.remove();
+
+                strSum = strSum.slice(0, -2) + op.getAttribute("data-value");
+              } else {
+                monitorContainer.lastElementChild.className = opIcon.className;
+
+                strSum = strSum.slice(0, -1) + op.getAttribute("data-value");
+              }
+            }
           }
+        } else {
+          monitorContainer.append(opIcon);
+          strSum += op.getAttribute("data-value");
         }
       } else {
+        //* This Is The Second Condition in The Main If 'monitorContainer.innerHTML === "" && op.getAttribute("data-value") === "-"'
         monitorContainer.append(opIcon);
-        strSum += ele.getAttribute("data-value");
-      }
 
-      //* ReEnable The Dot Button
+        strSum += "-";
+      }
 
       if (dot.style.pointerEvents === "none") {
         dot.style.cssText = `
-        pointer-events: auto;
-        color: var(--clr-text);
-        `;
+          pointer-events: auto;
+          color: var(--clr-text);
+          `;
       }
     }
   });
@@ -261,17 +297,24 @@ percent.addEventListener("click", function () {
     margin-inline: 5px;
     color: rgb(var(--clr));
     `;
+
     if (monitorContainer.lastChild.nodeType === 1) {
-      monitorContainer.lastElementChild.className = percentIcon.className;
+      let lastOp = monitorContainer.lastElementChild;
 
-      strSum = strSum.slice(0, -1) + percent.getAttribute("data-value");
-
-      sum.innerHTML = eval(strSum) || "";
+      if (lastOp.classList.contains("fa-percent")) {
+        monitorContainer.append(percentIcon);
+        strSum += percent.getAttribute("data-value");
+        sum.innerHTML = eval(strSum) || "";
+      } else {
+        if (strSum.length !== 1) {
+          lastOp.className = percentIcon.className;
+          strSum = strSum.slice(0, -1) + percent.getAttribute("data-value");
+          sum.innerHTML = eval(strSum) || "";
+        }
+      }
     } else {
       monitorContainer.append(percentIcon);
-
       strSum += percent.getAttribute("data-value");
-
       sum.innerHTML = eval(strSum) || "";
     }
   }
