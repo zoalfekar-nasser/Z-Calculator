@@ -103,6 +103,7 @@ ops.forEach(function (ele) {
 });
 
 //* Clear The Screen Button
+
 let clearAll = document.querySelector(`[data-mission="clear-all"]`);
 
 clearAll.addEventListener("click", function () {
@@ -260,11 +261,19 @@ percent.addEventListener("click", function () {
     margin-inline: 5px;
     color: rgb(var(--clr));
     `;
-    monitorContainer.append(percentIcon);
+    if (monitorContainer.lastChild.nodeType === 1) {
+      monitorContainer.lastElementChild.className = percentIcon.className;
 
-    strSum += percent.getAttribute("data-value");
+      strSum = strSum.slice(0, -1) + percent.getAttribute("data-value");
 
-    sum.innerHTML = eval(strSum) || "";
+      sum.innerHTML = eval(strSum) || "";
+    } else {
+      monitorContainer.append(percentIcon);
+
+      strSum += percent.getAttribute("data-value");
+
+      sum.innerHTML = eval(strSum) || "";
+    }
   }
 });
 
