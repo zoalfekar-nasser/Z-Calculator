@@ -12,8 +12,6 @@ let monitorContainer = document.querySelector(".mo-content");
 
 let sum = document.querySelector(".sum");
 
-let arrow = document.querySelector(".arrow");
-
 let strSum = "";
 
 numbers.forEach(function (ele) {
