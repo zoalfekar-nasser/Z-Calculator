@@ -20,7 +20,7 @@ const sum = document.querySelector(".sum");
 
 const dot = document.querySelector(".dot");
 
-const strSum = "";
+let strSum = "";
 
 function handleNumberClick() {
   const number = this;
@@ -68,7 +68,7 @@ function handleOperatorClick() {
     monitorContainer.innerHTML !== "" ||
     (monitorContainer.innerHTML === "" && op.getAttribute("data-value") === "-")
   ) {
-    const opIcon = document.createElement("i");
+    let opIcon = document.createElement("i");
 
     opIcon.className = `${op.getAttribute("data-op")}`;
 
@@ -84,7 +84,7 @@ function handleOperatorClick() {
       //* Here We Check if The Last Element in the monitor is An Operoator
 
       if (monitorContainer.lastChild.nodeType === 1) {
-        const lastOp = monitorContainer.lastElementChild;
+        let lastOp = monitorContainer.lastElementChild;
 
         //* If This Operator Is The Percent Operator We Will The Target Operator Normally
 
