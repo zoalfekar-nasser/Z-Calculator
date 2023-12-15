@@ -11,14 +11,14 @@ main {
   min-height: 100vh;
   @include m.flex(center, center, column) {
     gap: 15px;
-  };
+  }
   padding: 10px;
 
   transition: background v.$mainTransition;
   overflow: hidden;
   @media (max-width: 572px) {
     justify-content: flex-start;
-    gap: 10px
+    gap: 10px;
   }
 
   .switch {
@@ -27,6 +27,9 @@ main {
     background-color: c.$clr-secondry;
     width: min(100%, 375px);
     text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
     border-radius: 50px;
     .title {
@@ -57,6 +60,14 @@ main {
       }
       i {
         // animation: li;
+        @-webkit-keyframes rotate {
+          0% {
+            transform: rotate(0);
+          }
+          100% {
+            transform: rotate(1turn);
+          }
+        }
         @keyframes rotate {
           0% {
             transform: rotate(0);
@@ -123,12 +134,17 @@ main {
         font-size: 2.2rem;
         color: rgba($color: gray, $alpha: 0.5);
         font-weight: bold;
+        width: -webkit-fit-content;
+        width: -moz-fit-content;
         width: fit-content;
         max-width: calc(100% - 30px);
         overflow-x: auto;
         overflow-y: hidden;
         text-align: center;
         z-index: 10;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
         user-select: none;
         padding-bottom: 5px;
         transition: all 0.1s, font-size 0.1s 0.1s, color 0.1s 0.1s;
@@ -150,9 +166,13 @@ main {
         color: c.$clr-text;
         font-size: 20px;
         border-radius: 50%;
-        transition: box-shadow v.$mainTransition, color v.$mainTransition, background v.$mainTransition, width v.$mainTransition,
+        transition: box-shadow v.$mainTransition, color v.$mainTransition,
+          background v.$mainTransition, width v.$mainTransition,
           height v.$mainTransition;
         cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
         user-select: none;
         z-index: 15;
         .tool-tip {
@@ -220,8 +240,12 @@ main {
         bottom: 10px;
         opacity: 0;
         cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
         user-select: none;
-        transition: transform v.$mainTransition, box-shadow v.$mainTransition, opacity v.$mainTransition;
+        transition: transform v.$mainTransition, box-shadow v.$mainTransition,
+          opacity v.$mainTransition;
         &:hover {
           transform: scale(1.4);
         }
@@ -272,11 +296,15 @@ main {
     width: 100%;
     text-align: center;
     font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
     @include m.flex(center, center);
     i {
       color: rgb(c.$clr);
       transition: color v.$mainTransition;
+      -webkit-animation: up-down 1s alternate infinite ease-in-out;
       animation: up-down 1s alternate infinite ease-in-out;
     }
     a {
@@ -295,7 +323,8 @@ main {
         height: 4px;
         background-color: rgb(c.$clr);
         border-radius: 50%;
-        transition: width v.$mainTransition, height v.$mainTransition, border v.$mainTransition;
+        transition: width v.$mainTransition, height v.$mainTransition,
+          border v.$mainTransition;
         transition-timing-function: ease-in-out;
       }
       &:hover {
@@ -309,6 +338,14 @@ main {
         &::after {
           width: 0;
         }
+      }
+    }
+    @-webkit-keyframes up-down {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-5px);
       }
     }
     @keyframes up-down {
