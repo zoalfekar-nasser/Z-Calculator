@@ -1,29 +1,29 @@
-let root = document.documentElement;
+const root = document.documentElement;
 
-let numbers = document.querySelectorAll(".number");
+const numbers = document.querySelectorAll(".number");
 
-let operators = document.querySelectorAll(".op");
+const operators = document.querySelectorAll(".op");
 
-let percent = document.querySelector(`[data-mission="percentage"]`);
+const percent = document.querySelector(`[data-mission="percentage"]`);
 
-let clearAllButton = document.querySelector(`[data-mission="clear-all"]`);
+const clearAllButton = document.querySelector(`[data-mission="clear-all"]`);
 
-let clearButton = document.querySelector(`[data-mission="clear"]`);
+const clearButton = document.querySelector(`[data-mission="clear"]`);
 
-let equalButton = document.querySelector(`.eqaul`);
+const equalButton = document.querySelector(`.eqaul`);
 
-let disabledItems = document.querySelectorAll("[data-disable]");
+const disabledItems = document.querySelectorAll("[data-disable]");
 
-let monitorContainer = document.querySelector(".mo-content");
+const monitorContainer = document.querySelector(".mo-content");
 
-let sum = document.querySelector(".sum");
+const sum = document.querySelector(".sum");
 
-let dot = document.querySelector(".dot");
+const dot = document.querySelector(".dot");
 
-let strSum = "";
+const strSum = "";
 
 function handleNumberClick() {
-  let number = this;
+  const number = this;
 
   monitorContainer.append(number.getAttribute("data-num"));
 
@@ -58,7 +58,7 @@ function reEnableDotClick() {
 }
 
 function handleOperatorClick() {
-  let op = this;
+  const op = this;
 
   //* Check If the Monitor is not empty or if the Monitor IS EMPTY And The Target Operator Is Minus
 
@@ -68,7 +68,7 @@ function handleOperatorClick() {
     monitorContainer.innerHTML !== "" ||
     (monitorContainer.innerHTML === "" && op.getAttribute("data-value") === "-")
   ) {
-    let opIcon = document.createElement("i");
+    const opIcon = document.createElement("i");
 
     opIcon.className = `${op.getAttribute("data-op")}`;
 
@@ -84,7 +84,7 @@ function handleOperatorClick() {
       //* Here We Check if The Last Element in the monitor is An Operoator
 
       if (monitorContainer.lastChild.nodeType === 1) {
-        let lastOp = monitorContainer.lastElementChild;
+        const lastOp = monitorContainer.lastElementChild;
 
         //* If This Operator Is The Percent Operator We Will The Target Operator Normally
 
@@ -144,7 +144,7 @@ function handleOperatorClick() {
 
 function handlePercentButtonClick() {
   if (monitorContainer.innerHTML !== "") {
-    let percentIcon = document.createElement("i");
+    const percentIcon = document.createElement("i");
 
     percentIcon.className = `${percent.getAttribute("data-op")}`;
 
@@ -155,7 +155,7 @@ function handlePercentButtonClick() {
     `;
 
     if (monitorContainer.lastChild.nodeType === 1) {
-      let lastOp = monitorContainer.lastElementChild;
+      const lastOp = monitorContainer.lastElementChild;
 
       if (lastOp.classList.contains("fa-percent")) {
         monitorContainer.append(percentIcon);
@@ -248,19 +248,19 @@ function handleEqualsButtonClick() {
 
 //* Switch Between Dark And Light Modes
 
-let switchMode = document.querySelector(".mode-icon");
+const switchMode = document.querySelector(".mode-icon");
 
-let icon = document.querySelector(".mode-icon i");
+const icon = document.querySelector(".mode-icon i");
 
-let iconToolTip = document.querySelector(".mode-icon .tool-tip");
+const iconToolTip = document.querySelector(".mode-icon .tool-tip");
 
-let calcBody = document.querySelector(".calc-body");
+const calcBody = document.querySelector(".calc-body");
 
-let moonIconClass = "fa-moon";
+const moonIconClass = "fa-moon";
 
-let sunIconClass = "fa-sun";
+const sunIconClass = "fa-sun";
 
-let prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
 
 if (prefersLight) {
   root.classList.add("light");
@@ -310,11 +310,11 @@ function handleSwitchModeClick() {
 
 //* Change Main Color
 
-let colorsButton = document.querySelector(".colors-icon");
+const colorsButton = document.querySelector(".colors-icon");
 
-let colorsContainer = document.querySelector(".colors-container");
+const colorsContainer = document.querySelector(".colors-container");
 
-let colors = document.querySelectorAll(".color");
+const colors = document.querySelectorAll(".color");
 
 function handleColorsButtonClick() {
   colorsContainer.classList.toggle("open");
