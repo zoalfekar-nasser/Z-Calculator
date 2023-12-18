@@ -16,31 +16,31 @@ const disabledItems = document.querySelectorAll("[data-disable]");
 
 const monitorContainer = document.querySelector(".mo-content");
 
-const sum = document.querySelector(".sum");
+const result = document.querySelector(".result");
 
 const dot = document.querySelector(".dot");
 
-let strSum = "";
+let strResult = "";
 
 function handleNumberClick() {
   const number = this;
 
   monitorContainer.append(number.getAttribute("data-num"));
 
-  strSum += number.getAttribute("data-num");
+  strResult += number.getAttribute("data-num");
 
-  sum.innerHTML = Number.isInteger(eval(strSum))
-    ? eval(strSum)
-    : eval(strSum).toFixed(2) || "";
+  result.innerHTML = Number.isInteger(eval(strResult))
+    ? eval(strResult)
+    : eval(strResult).toFixed(2) || "";
 }
 
 function handleDotClick() {
   if (monitorContainer.innerHTML !== "") {
-    strSum += dot.getAttribute("data-value");
+    strResult += dot.getAttribute("data-value");
 
     monitorContainer.append(dot.getAttribute("data-value"));
 
-    sum.append(dot.getAttribute("data-value"));
+    result.append(dot.getAttribute("data-value"));
 
     dot.style.cssText = `
     pointer-events: none;
@@ -90,7 +90,7 @@ function handleOperatorClick() {
 
         if (lastOp.classList.contains("fa-percent")) {
           monitorContainer.append(opIcon);
-          strSum += op.getAttribute("data-value");
+          strResult += op.getAttribute("data-value");
         } else {
           //* And If its Not The Percent Operator We Will Check On Several Conditions
 
@@ -103,9 +103,9 @@ function handleOperatorClick() {
           ) {
             monitorContainer.append(opIcon);
 
-            strSum += "-";
+            strResult += "-";
           } else if (
-            !(lastOp.classList.contains("fa-minus") && strSum.length === 1)
+            !(lastOp.classList.contains("fa-minus") && strResult.length === 1)
           ) {
             //* We Check Here If There Is No A Single Minus in the Screen
 
@@ -119,23 +119,23 @@ function handleOperatorClick() {
 
               lastOp.remove();
 
-              strSum = strSum.slice(0, -2) + op.getAttribute("data-value");
+              strResult = strResult.slice(0, -2) + op.getAttribute("data-value");
             } else {
               monitorContainer.lastElementChild.className = opIcon.className;
 
-              strSum = strSum.slice(0, -1) + op.getAttribute("data-value");
+              strResult = strResult.slice(0, -1) + op.getAttribute("data-value");
             }
           }
         }
       } else {
         monitorContainer.append(opIcon);
-        strSum += op.getAttribute("data-value");
+        strResult += op.getAttribute("data-value");
       }
     } else {
       //* This Is The Second Condition in The Main If 'monitorContainer.innerHTML === "" && op.getAttribute("data-value") === "-"'
       monitorContainer.append(opIcon);
 
-      strSum += "-";
+      strResult += "-";
     }
 
     reEnableDotClick();
@@ -159,19 +159,19 @@ function handlePercentButtonClick() {
 
       if (lastOp.classList.contains("fa-percent")) {
         monitorContainer.append(percentIcon);
-        strSum += percent.getAttribute("data-value");
-        sum.innerHTML = eval(strSum) || "";
+        strResult += percent.getAttribute("data-value");
+        result.innerHTML = eval(strResult) || "";
       } else {
-        if (strSum.length !== 1) {
+        if (strResult.length !== 1) {
           lastOp.className = percentIcon.className;
-          strSum = strSum.slice(0, -1) + percent.getAttribute("data-value");
-          sum.innerHTML = eval(strSum) || "";
+          strResult = strResult.slice(0, -1) + percent.getAttribute("data-value");
+          result.innerHTML = eval(strResult) || "";
         }
       }
     } else {
       monitorContainer.append(percentIcon);
-      strSum += percent.getAttribute("data-value");
-      sum.innerHTML = eval(strSum) || "";
+      strResult += percent.getAttribute("data-value");
+      result.innerHTML = eval(strResult) || "";
     }
   }
 }
@@ -179,11 +179,11 @@ function handlePercentButtonClick() {
 function handleClearAllButtonClick() {
   monitorContainer.innerHTML = "";
 
-  strSum = "";
+  strResult = "";
 
-  sum.innerHTML = eval(strSum) || "";
+  result.innerHTML = eval(strResult) || "";
 
-  sum.classList.remove("final-sum");
+  result.classList.remove("final-result");
 
   disabledItems.forEach(function (item) {
     item.style.pointerEvents = "auto";
@@ -198,7 +198,7 @@ function handleClearAllButtonClick() {
 }
 
 function handleClearButtonClick() {
-  let strSumLength = strSum.length;
+  let strResultLength = strResult.length;
 
   //* Check If The Monitor is Not Empty
 
@@ -208,25 +208,25 @@ function handleClearButtonClick() {
       reEnableDotClick();
     }
 
-    if (strSumLength === 1) {
-      strSum = "";
-      sum.innerHTML = "";
+    if (strResultLength === 1) {
+      strResult = "";
+      result.innerHTML = "";
       monitorContainer.innerHTML = "";
     } else {
       //* Check If The Last Character is an Element
       if (monitorContainer.lastChild.nodeType === 1) {
         if (monitorContainer.lastChild.classList.contains("fa-percent")) {
-          strSum = strSum.slice(0, strSumLength - 4);
+          strResult = strResult.slice(0, strResultLength - 4);
         } else {
-          strSum = strSum.slice(0, -1);
+          strResult = strResult.slice(0, -1);
         }
 
         monitorContainer.lastChild.remove();
-        sum.innerHTML = eval(strSum) || "";
+        result.innerHTML = eval(strResult) || "";
       } else {
         monitorContainer.lastChild.remove();
-        strSum = strSum.slice(0, -1);
-        sum.innerHTML = eval(strSum) || "";
+        strResult = strResult.slice(0, -1);
+        result.innerHTML = eval(strResult) || "";
       }
     }
   }
@@ -237,8 +237,8 @@ function handleClearButtonClick() {
 }
 
 function handleEqualsButtonClick() {
-  if (eval(strSum) !== undefined) {
-    sum.classList.add("final-sum");
+  if (eval(strResult) !== undefined) {
+    result.classList.add("final-result");
 
     monitorContainer.style.opacity = "0";
 

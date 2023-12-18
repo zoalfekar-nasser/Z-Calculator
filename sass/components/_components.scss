@@ -49,10 +49,14 @@
   font-weight: bold;
 }
 
-.final-sum {
+.final-result {
   color: c.$clr-text !important;
   font-size: 3.2rem !important;
   user-select: auto !important;
+  @media (max-width: 400px) {
+  font-size: 2.4rem !important;
+
+  }
 }
 
 .light-shadow {
