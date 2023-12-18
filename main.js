@@ -204,6 +204,9 @@ function handleClearButtonClick() {
 
   if (monitorContainer.lastChild !== null) {
     //* Check If The Monitor Has Only One Character
+    if (monitorContainer.lastChild.data === ".") {
+      reEnableDotClick();
+    }
 
     if (strSumLength === 1) {
       strSum = "";
@@ -227,6 +230,10 @@ function handleClearButtonClick() {
       }
     }
   }
+  // if (monitorContainer.lastChild.nodeValue === ".") {
+  // reEnableDotClick();
+
+  // }
 }
 
 function handleEqualsButtonClick() {
